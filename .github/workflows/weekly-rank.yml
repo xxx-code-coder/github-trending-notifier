@@ -1,0 +1,48 @@
+name: GitHub Trending Notifier
+
+on:
+  schedule:
+    # 每周一 UTC 00:00 ≈ 北京时间周一 08:00
+    - cron: '0 0 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: pip install -q beautifulsoup4
+
+      - name: Fetch & push
+        env:
+          # 推送渠道（按需填 secret；不填则跳过对应渠道）
+          WECHAT_WEBHOOK: ${{ secrets.WECHAT_WEBHOOK }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          # 周期 / 语言（仓库 Variables，可改 weekly/monthly/daily 或指定语言）
+          # ⚠️ 语言变量必须叫 TRENDING_LANG，不能用 LANG（runner 自带 LANG=C.UTF-8，
+          #    拼进 URL 后 GitHub 返回空榜，会导致每次都抓 0 条）
+          SINCE: ${{ vars.SINCE || 'weekly' }}
+          TRENDING_LANG: ${{ vars.TRENDING_LANG }}
+        run: python gen_rank.py
+
+      - name: Commit rank.md
+        run: |
+          git config user.email "bot@github.com"
+          git config user.name "trending-bot"
+          git add rank.md
+          git commit -m "rank $(date +%F)" || exit 0
+          git push

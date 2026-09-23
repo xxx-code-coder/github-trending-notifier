@@ -114,10 +114,122 @@ def _parse_weekly(wk):
         return 0
 
 
+# ===== 视角三：AI 应用层周榜 =====
+# GitHub 官方不支持“按主题(如 AI)筛选趋势”，只支持按语言。故抓 AI 重仓语言周榜
+# 合并去重，宽松判定 AI 类并分级（应用层优先，新手友好）。
+AI_LANGS = ["python", "typescript", "javascript", "jupyter", "rust", "c++", "go"]
+WATCHLIST = ["hypit-ai/hypit"]   # 你长期关注的仓库，永远置顶显示（即便掉出综合榜）
+
+_AI_KW = re.compile(
+    r"\b(ai|a\.i\.|llm|llms|gpt|chatgpt|claude|gemini|copilot|rag|ml|machine learning|"
+    r"deep learning|neural|diffusion|transformer|model|models|embedding|prompt|chatbot|"
+    r"assistant|openai|anthropic|ollama|vllm|langchain|mcp|multimodal|vision|speech|tts|"
+    r"asr|whisper|video generation|image generation|genai|generative|qwen|deepseek|"
+    r"mistral|llama|glm|hunyuan|kimi|yuanbao)\b", re.I)
+_APP_KW = re.compile(
+    r"\b(agent|agents|cli|tool|sdk|self-hosted|selfhosted|extension|plugin|bot|workflow|"
+    r"app|ui|studio|platform|engine|generator|framework|library|wrapper|api|server|"
+    r"client|alternative|替代|自动化|助手|机器人)\b", re.I)
+_RESEARCH_KW = re.compile(
+    r"\b(paper|survey|dataset|benchmark|weights|checkpoint|pretrain|pretraining|arxiv|"
+    r"fine-tun|fine-tune|sft|rlhf|thesis|academic|evaluation)\b", re.I)
+_NON_AI_KW = re.compile(r"\b(blog|portfolio|boilerplate|cooking|recipe|pet|tamagotchi)\b", re.I)
+
+
+def _is_ai(repo, desc):
+    """宽松判定：你关注的仓库恒 True；含 AI 关键词 True；明确非 AI 且无 AI 信号才 False。
+    其余（抓的多为 AI/工具向语言）默认包含，宁滥勿漏，避免 hypit 这类‘没写 AI 二字’被漏。"""
+    if repo in WATCHLIST:
+        return True
+    if _AI_KW.search(desc):
+        return True
+    if _NON_AI_KW.search(desc) and not _AI_KW.search(desc):
+        return False
+    return True
+
+
+def _grade(desc):
+    """分级：命中研究关键词 → 研究层；否则默认应用层（新手友好，能直接上手的轮子优先）。"""
+    if _RESEARCH_KW.search(desc):
+        return "research"
+    return "app"
+
+
+def _ai_badge(it):
+    grade = _grade(it["desc"])
+    badge = "🔬 研究层" if grade == "research" else "🛠️ 应用层"
+    if it["repo"] in WATCHLIST:
+        badge = "👁 " + badge
+    return badge
+
+
+def _fetch_repo_stars(repo):
+    """watchlist 兜底：当周未进任何语言榜时，拉一次总星数用于展示。失败返回 None。"""
+    url = f"https://github.com/{repo}"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            html = resp.read().decode("utf-8")
+        m = re.search(r"([\d,]+)\s+users? starred this repository", html)
+        if m:
+            return m.group(1)
+        m2 = re.search(r'id="repo-stars-counter-star"[^>]*title="([\d,]+)"', html)
+        if m2:
+            return m2.group(1)
+    except Exception:
+        pass
+    return None
+
+
+def _ai_sort_key(it):
+    badge = it.get("badge", "")
+    # 优先级数字越大越靠前（配合 reverse=True）：3=你关注 > 2=应用层 > 1=研究层
+    grp = 3 if "👁" in badge else (2 if "🛠️" in badge else 1)
+    return (grp, _parse_weekly(it["week"]))
+
+
+def fetch_ai_board(since="weekly"):
+    """抓多语言周榜 → 合并去重 → 宽松判 AI → 分级 → 排序，产出视角三。"""
+    merged = {}
+    for lang in AI_LANGS:
+        try:
+            items = fetch_trending(since, lang)
+        except Exception as e:
+            print(f"[ai] 语言 {lang} 抓取失败，跳过：{e}")
+            continue
+        for it in items:
+            repo = it["repo"]
+            if repo in merged:
+                if _parse_weekly(it["week"]) > _parse_weekly(merged[repo]["week"]):
+                    merged[repo] = it
+            else:
+                merged[repo] = it
+        time.sleep(1)   # 礼貌节流，避免触发限流
+    board = []
+    for repo, it in merged.items():
+        if not _is_ai(repo, it["desc"]):
+            continue
+        it["badge"] = _ai_badge(it)
+        board.append(it)
+    # watchlist 兜底：当周未进任何语言榜也要显示
+    for repo in WATCHLIST:
+        if repo not in merged:
+            stars = _fetch_repo_stars(repo) or "?"
+            board.append({
+                "repo": repo, "stars": stars, "week": "本周未进语言趋势榜",
+                "desc": "你关注的仓库，当前未出现在任何语言周榜", "badge": "👁 关注",
+            })
+    board.sort(key=_ai_sort_key, reverse=True)
+    return board
+
+
 # 双视角说明文案（邮件 / rank.md 共用）
 GROWTH_NOTE = "排序：按本周 star 增量降序（谁涨得多谁靠前）"
 OFFICIAL_NOTE = "排序：照搬 github.com/trending 官方顺序（GitHub 自家算法，非纯增量）"
 OFFICIAL_TITLE = "GitHub 官方 trending 原顺序（未重排）"
+# 视角三：AI 应用层周榜
+AI_NOTE = "排序：👁 你关注的置顶 → 🛠️ 应用层优先 → 🔬 研究层靠后；各组内按本周 star 增量降序。多语言(py/ts/js/jupyter/rust/c++/go)周榜合并去重，宽松判定 AI 类（宁滥勿漏）。"
+AI_TITLE = "视角三 · AI 应用层周榜（可直接上手的轮子优先）"
 
 
 def md_block(items, title, sort_note=""):
@@ -127,7 +239,9 @@ def md_block(items, title, sort_note=""):
     lines.append("")
     for i, it in enumerate(items, 1):
         url = f"https://github.com/{it['repo']}"
-        lines.append(f"{i}. [{it['repo']}]({url})  ⭐{it['stars']}  {it['week']}")
+        badge = it.get("badge")
+        badge_str = f"  [{badge}]" if badge else ""
+        lines.append(f"{i}. [{it['repo']}]({url}){badge_str}  ⭐{it['stars']}  {it['week']}")
         if it["desc"]:
             lines.append(f"> {it['desc'][:60]}")
     return "\n".join(lines)
@@ -161,7 +275,9 @@ def html_section(items, subtitle, note):
     """邮件里单个视角区块（小标题 + 说明 + 一张表）。"""
     rows = "".join(
         f"<tr><td>{i}</td>"
-        f"<td><a href='https://github.com/{it['repo']}'>{it['repo']}</a></td>"
+        f"<td><a href='https://github.com/{it['repo']}'>{it['repo']}</a>"
+        + (f"<br/><span style='color:#c60;font-size:12px'>{it['badge']}</span>" if it.get("badge") else "")
+        + f"</td>"
         f"<td>{it['stars']}</td><td>{it['week']}</td><td>{it['desc']}</td></tr>"
         for i, it in enumerate(items, 1)
     )
@@ -174,16 +290,17 @@ def html_section(items, subtitle, note):
     )
 
 
-def html_email(sorted_items, raw_items, title):
-    """单邮件双视角：视角一=本周增量降序；视角二=GitHub 官方原顺序。"""
+def html_email(sorted_items, raw_items, ai_items, title):
+    """单邮件三视角：视角一=本周增量降序；视角二=GitHub 官方原顺序；视角三=AI 应用层周榜。"""
     return (
         f"<h2>{title}</h2>"
         + html_section(sorted_items, "视角一 · 本周 star 增量榜（谁涨得多谁靠前）", GROWTH_NOTE)
         + html_section(raw_items, f"视角二 · {OFFICIAL_TITLE}", OFFICIAL_NOTE)
+        + html_section(ai_items, AI_TITLE, AI_NOTE)
     )
 
 
-def push_email(sorted_items, raw_items, title):
+def push_email(sorted_items, raw_items, ai_items, title):
     host, port, user, pwd, to = (
         os.environ.get(k) for k in ("SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS", "EMAIL_TO")
     )
@@ -198,7 +315,7 @@ def push_email(sorted_items, raw_items, title):
     if "@" not in from_addr:
         from_addr = user
     from_ = formataddr(("GitHubTrending", from_addr))
-    msg = MIMEText(html_email(sorted_items, raw_items, title), "html", "utf-8")
+    msg = MIMEText(html_email(sorted_items, raw_items, ai_items, title), "html", "utf-8")
     msg["Subject"] = title
     msg["From"] = from_
     msg["To"] = to
@@ -228,15 +345,17 @@ def main():
     raw_items = fetch_trending(since, lang)          # 官方 trending 页原始顺序（视角二）
     # 🔴 按「本周 star 增量」降序重排出视角一（官网顺序是自家不透明算法，并非纯增量排序）
     sorted_items = sorted(raw_items, key=lambda it: _parse_weekly(it["week"]), reverse=True)
+    ai_items = fetch_ai_board(since)                  # 视角三：AI 应用层周榜（多语言合并）
     today = datetime.date.today().strftime("%Y-%m-%d")
     title = f"GitHub {_period_cn(since)}趋势榜 Top{len(raw_items)} ({today})"
     with open("rank.md", "w", encoding="utf-8") as f:
-        # 单文件双视角：主视角=增量降序，副视角=官方原顺序
+        # 单邮件三视角：主视角=增量降序，副视角=官方原顺序，视角三=AI 应用层
         f.write(md_block(sorted_items, title, GROWTH_NOTE) + "\n\n")
-        f.write(md_block(raw_items, OFFICIAL_TITLE, OFFICIAL_NOTE) + "\n")
-    print(f"抓取 {len(raw_items)} 条，已写 rank.md（双视角）")
+        f.write(md_block(raw_items, OFFICIAL_TITLE, OFFICIAL_NOTE) + "\n\n")
+        f.write(md_block(ai_items, AI_TITLE, AI_NOTE) + "\n")
+    print(f"抓取 {len(raw_items)} 条综合 + {len(ai_items)} 条 AI 应用层，已写 rank.md（三视角）")
     push_wechat(sorted_items, title)                 # 企微（未配置）仅发主视角
-    push_email(sorted_items, raw_items, title)       # 邮件发双视角
+    push_email(sorted_items, raw_items, ai_items, title)   # 邮件发三视角
 
 
 if __name__ == "__main__":

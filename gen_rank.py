@@ -118,7 +118,7 @@ def _parse_weekly(wk):
 # GitHub 官方不支持“按主题(如 AI)筛选趋势”，只支持按语言。故抓 AI 重仓语言周榜
 # 合并去重，宽松判定 AI 类并分级（应用层优先，新手友好）。
 AI_LANGS = ["python", "typescript", "javascript", "jupyter", "rust", "c++", "go"]
-WATCHLIST = ["hypit-ai/hypit"]   # 你长期关注的仓库，永远置顶显示（即便掉出综合榜）
+WATCHLIST = []   # 留空=不强制置顶任何仓库；以后要长期盯某个 repo 时往里加，例如 ["owner/name"]
 
 _AI_KW = re.compile(
     r"\b(ai|a\.i\.|llm|llms|gpt|chatgpt|claude|gemini|copilot|rag|ml|machine learning|"

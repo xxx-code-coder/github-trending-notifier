@@ -3,6 +3,8 @@
 每周一自动抓取 GitHub Trending 榜单（默认周榜 Top20），推送至**企业微信群机器人**和/或**邮件**，并归档到 `rank.md`。
 全程跑在 GitHub Actions 境外环境，你**不需要直连 GitHub、不需要开代理**，在国内用企业微信 / 邮箱即可收榜。
 
+> 已部署实例：`xxx-code-coder/github-trending-notifier` —— Actions 手动跑通，日志出现 `抓取 20 条，已写 rank.md` + `[email] 已发送至 …`。
+
 ## 使用方法（逐屏指引）
 
 > ⚠️ **最容易踩的坑**：`Secrets and variables` 在**「仓库级」** Settings 里，**不在「账号级」Settings 里**。
@@ -12,6 +14,7 @@
 ### 第 1 步：先有仓库（没有仓库就没有「仓库 Settings」）
 - 登录 GitHub → 打开本模板 → 点右上角 **`Fork`** → 选你的账号 → 得到 `github.com/<你的用户名>/github-trending-notifier`。
 - （也可手动新建一个仓库，把这 4 个文件传上去。）
+- ⚠️ **仓库必须非空**才能跑：空仓库（`size=0`、无 commit）时 Actions 左侧没有任何工作流，**不会出现 `Run workflow` 按钮**。先把 `gen_rank.py` / `README.md` / `.gitignore` / `.github/workflows/weekly-rank.yml` 提交进默认分支。
 
 ### 第 2 步：进入「仓库」Settings 配 Secrets
 1. 打开你的仓库页：`https://github.com/<你的用户名>/github-trending-notifier`
@@ -23,13 +26,13 @@
 | Secret Name | 值 | 渠道 |
 |---|---|---|
 | `WECHAT_WEBHOOK` | 企微群机器人完整 URL（`https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxx`） | 企业微信 |
-| `SMTP_HOST` | `smtp.qq.com` | 邮件 |
+| `SMTP_HOST` | `smtp.qq.com`（**不带空格、不带 `https://`、不带端口**） | 邮件 |
 | `SMTP_PORT` | `465` | 邮件 |
 | `SMTP_USER` | 你的 QQ 邮箱，如 `476219712@qq.com` | 邮件 |
 | `SMTP_PASS` | **邮箱授权码**（16 位，非登录密码） | 邮件 |
 | `EMAIL_TO` | 收件邮箱（可同 `SMTP_USER`） | 邮件 |
 
-   - 可选项：`EMAIL_FROM`（默认= `SMTP_USER`）。
+   - `EMAIL_FROM` 是**可选项**：**不建就用 `SMTP_USER`**。⚠️ 千万不要建一个**空值**的 `EMAIL_FROM`（见下方「邮件发不出去排错」）。
    - 若想用 **Variables** 而非 Secrets 调整周期：左侧同处 **`Variables`** → `New repository variable`，加 `SINCE=weekly|daily|monthly`、`TRENDING_LANG=python` 等（非敏感，用 variable 即可）。
      - 🔴 **语言变量名必须是 `TRENDING_LANG`，不能叫 `LANG`**：`LANG` 是 POSIX 区域设置变量，GitHub runner 自带 `LANG=C.UTF-8`，被拼进 URL 会变成 `?l=C.UTF-8&...`，GitHub 对未知语言返回**空榜**，脚本会抓到 0 条并报错。脚本已加净化（只放行小写语言名），但仍请用 `TRENDING_LANG`。
 
@@ -44,7 +47,17 @@
 - 你现在是不是在**账号设置页**（左侧是 Profile / Account / Appearance…）？→ 那是错的，按第 2 步进**仓库页**再点 `Settings`。
 - 仓库页**没有 `Settings` 标签**？→ 说明你对这个仓库没有 admin 权限（不是 owner）。用你自己账号 **fork** 出来的仓库才有。
 - 仓库是**空仓库/刚建**？→ 也能配 Secrets，但先把 4 个文件提交进去，否则 Actions 无内容可跑。
+- 找不到 `Run workflow` 按钮？→ 检查 ① 文件是否已在**默认分支**；② workflow 是否含 `workflow_dispatch`（本模板已有）。
 - 手机 App 端入口不同且受限，**建议用电脑浏览器**操作这几步。
+
+### 邮件发不出去排错（两个已实测的坑）
+
+| 日志原文 | 真因 | 修法 |
+|---|---|---|
+| `[email] 失败: [Errno -2] Name or service not known` | `SMTP_HOST` 的**值**脏了（首尾空格 / 写成了 `https://…` / 带了 `:465`）。**secret 名字对，不代表值对** | 删除 `SMTP_HOST` 重建，值只填 `smtp.qq.com` |
+| `[email] 失败: (550, b'The "From" header is missing or invalid…')` | 建了一个**空值**的 `EMAIL_FROM`，或 workflow 引用了不存在的 secret。GitHub 会把未定义的 secret 注入成**空字符串**，导致发件人变成 `GitHubTrending <>`，QQ 直接拒收 | 删掉那个空的 `EMAIL_FROM`；脚本已加兜底（空值自动回落 `SMTP_USER`） |
+
+> ⚠️ 这两个坑都**不会让 workflow 变红**（脚本捕获异常后继续执行）——所以别只看 ✓ 结论，务必读日志里 `[email]` 那几行。
 
 ## 备选方案：完全不用 GitHub（本机 Windows 计划任务）
 
@@ -68,14 +81,30 @@ schtasks /Create /TN "GitHubTrendingWeekly" /TR "E:\MyWork\github-trending-notif
 | | GitHub Actions | 本机计划任务 |
 |---|---|---|
 | 需要 GitHub 账号 / 登录 | 需要（一次性） | **不需要** |
-| 需要配 Secrets | 需要（6 项） | 不需要（读本地 `.env`） |
+| 需要配 Secrets | 需要（5~6 项） | 不需要（读本地 `.env`） |
 | 依赖本机开机 | 不依赖 | **依赖** |
 | 稳定性 | 高（云端） | 取决于本机网络与限流 |
+
+> 🔴 **两条路请只留一条**，否则每周会收到两封重复邮件。云端跑通后建议撤销本机任务（见上方第 5 条命令）。
+
+## 一行命令推送（可选，无需手动点 GitHub 界面）
+
+`tools/push_and_run.py` 可把 4 个文件推到你的仓库、触发一次 Actions 并回读日志——**不需要 `gh` CLI**：
+
+```
+tools\push_and_run.bat            # 双击即可，令牌走隐藏输入（不回显、不落盘）
+```
+
+- 只推**白名单内**的 4 个文件，代码里有 `assert ".env" not in FILES`，绝不会把授权码传上去。
+- 需要 PAT，scope 勾 `repo` + `workflow`；用完记得去 GitHub 把它 `Delete` 掉。
+- 可配环境变量 `GH_OWNER` / `GH_REPO` / `GH_BRANCH`。
 
 ## 文件说明
 - `gen_rank.py`：抓取 + 解析 + 生成 + 推送（企业微信 markdown / SMTP HTML）。
 - `run_weekly.bat`：本机计划任务入口（GBK 编码，日志写入 `log/run.log`）。
-- `tools/make_launcher.py`：重新生成上述 `.bat` 的小工具（保证 GBK 编码，中文 Windows 不乱码）。
+- `tools/make_launcher.py`：重新生成 `run_weekly.bat` 的小工具（保证 GBK 编码，中文 Windows 不乱码）。
+- `tools/push_and_run.py`：用 PAT 直连 GitHub REST API 推文件 + 触发 Actions + 回读日志。
+- `tools/make_push_bat.py`：生成 `tools/push_and_run.bat`。
 - `.github/workflows/weekly-rank.yml`：定时任务与 secrets 注入。
 - `rank.md`：每次运行自动生成的榜单存档。
 

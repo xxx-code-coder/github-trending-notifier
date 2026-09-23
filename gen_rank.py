@@ -97,8 +97,34 @@ def _period_cn(since):
     return {"daily": "日", "weekly": "周", "monthly": "月"}.get(since, since)
 
 
-def md_block(items, title):
-    lines = [f"## {title}", "> 数据来源 github.com/trending", ""]
+def _parse_weekly(wk):
+    """从 '12,590 stars this week' 这类文案里抠出周增量整数（去千分位逗号）。
+
+    用于「按本周 star 增量降序」排序，而非照搬 GitHub 官方 trending 页的
+    不透明顺序。daily/monthly 文案同理（'stars today' / 'stars this month'），
+    正则只取首个数字即正确。解析失败回落 0（沉底）。"""
+    if not wk:
+        return 0
+    m = re.search(r"([\d,]+)", wk)
+    if not m:
+        return 0
+    try:
+        return int(m.group(1).replace(",", ""))
+    except ValueError:
+        return 0
+
+
+# 双视角说明文案（邮件 / rank.md 共用）
+GROWTH_NOTE = "排序：按本周 star 增量降序（谁涨得多谁靠前）"
+OFFICIAL_NOTE = "排序：照搬 github.com/trending 官方顺序（GitHub 自家算法，非纯增量）"
+OFFICIAL_TITLE = "GitHub 官方 trending 原顺序（未重排）"
+
+
+def md_block(items, title, sort_note=""):
+    lines = [f"## {title}", "> 数据来源 github.com/trending"]
+    if sort_note:
+        lines.append(f"> {sort_note}")
+    lines.append("")
     for i, it in enumerate(items, 1):
         url = f"https://github.com/{it['repo']}"
         lines.append(f"{i}. [{it['repo']}]({url})  ⭐{it['stars']}  {it['week']}")
@@ -112,7 +138,7 @@ def push_wechat(items, title):
     if not wh:
         print("[wechat] 未配置 WECHAT_WEBHOOK，跳过")
         return
-    full = md_block(items, title)
+    full = md_block(items, title, GROWTH_NOTE)
     # 企微 markdown 内容上限 4096 字节，超出则拆两条
     chunks = [full] if len(full) <= 4000 else [
         md_block(items[: len(items) // 2], title + "（上）"),
@@ -131,7 +157,8 @@ def push_wechat(items, title):
             print("[wechat] 失败:", e)
 
 
-def html_email(items, title):
+def html_section(items, subtitle, note):
+    """邮件里单个视角区块（小标题 + 说明 + 一张表）。"""
     rows = "".join(
         f"<tr><td>{i}</td>"
         f"<td><a href='https://github.com/{it['repo']}'>{it['repo']}</a></td>"
@@ -139,14 +166,24 @@ def html_email(items, title):
         for i, it in enumerate(items, 1)
     )
     return (
-        f"<h2>{title}</h2>"
+        f"<h3>{subtitle}</h3>"
+        f"<p style='color:#888;font-size:12px;margin:2px 0 8px'>{note}</p>"
         f"<table border='1' cellspacing='0' cellpadding='6'>"
         f"<tr><th>#</th><th>仓库</th><th>Stars</th><th>本周</th><th>描述</th></tr>"
-        f"{rows}</table>"
+        f"{rows}</table><br/>"
     )
 
 
-def push_email(items, title):
+def html_email(sorted_items, raw_items, title):
+    """单邮件双视角：视角一=本周增量降序；视角二=GitHub 官方原顺序。"""
+    return (
+        f"<h2>{title}</h2>"
+        + html_section(sorted_items, "视角一 · 本周 star 增量榜（谁涨得多谁靠前）", GROWTH_NOTE)
+        + html_section(raw_items, f"视角二 · {OFFICIAL_TITLE}", OFFICIAL_NOTE)
+    )
+
+
+def push_email(sorted_items, raw_items, title):
     host, port, user, pwd, to = (
         os.environ.get(k) for k in ("SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS", "EMAIL_TO")
     )
@@ -161,7 +198,7 @@ def push_email(items, title):
     if "@" not in from_addr:
         from_addr = user
     from_ = formataddr(("GitHubTrending", from_addr))
-    msg = MIMEText(html_email(items, title), "html", "utf-8")
+    msg = MIMEText(html_email(sorted_items, raw_items, title), "html", "utf-8")
     msg["Subject"] = title
     msg["From"] = from_
     msg["To"] = to
@@ -188,14 +225,18 @@ def main():
         since = "weekly"
     # 🔴 用 TRENDING_LANG，不要用 LANG（系统区域变量会污染 URL，见 _norm_lang 注释）
     lang = _norm_lang(os.environ.get("TRENDING_LANG"))
-    items = fetch_trending(since, lang)
+    raw_items = fetch_trending(since, lang)          # 官方 trending 页原始顺序（视角二）
+    # 🔴 按「本周 star 增量」降序重排出视角一（官网顺序是自家不透明算法，并非纯增量排序）
+    sorted_items = sorted(raw_items, key=lambda it: _parse_weekly(it["week"]), reverse=True)
     today = datetime.date.today().strftime("%Y-%m-%d")
-    title = f"GitHub {_period_cn(since)}趋势榜 Top{len(items)} ({today})"
+    title = f"GitHub {_period_cn(since)}趋势榜 Top{len(raw_items)} ({today})"
     with open("rank.md", "w", encoding="utf-8") as f:
-        f.write(md_block(items, title) + "\n")
-    print(f"抓取 {len(items)} 条，已写 rank.md")
-    push_wechat(items, title)
-    push_email(items, title)
+        # 单文件双视角：主视角=增量降序，副视角=官方原顺序
+        f.write(md_block(sorted_items, title, GROWTH_NOTE) + "\n\n")
+        f.write(md_block(raw_items, OFFICIAL_TITLE, OFFICIAL_NOTE) + "\n")
+    print(f"抓取 {len(raw_items)} 条，已写 rank.md（双视角）")
+    push_wechat(sorted_items, title)                 # 企微（未配置）仅发主视角
+    push_email(sorted_items, raw_items, title)       # 邮件发双视角
 
 
 if __name__ == "__main__":

@@ -153,7 +153,14 @@ def push_email(items, title):
     if not all([host, port, user, pwd, to]):
         print("[email] 未配置完整 SMTP 参数，跳过")
         return
-    from_ = formataddr(("GitHubTrending", os.environ.get("EMAIL_FROM", user)))
+    # 注意：工作流里 EMAIL_FROM: ${{ secrets.EMAIL_FROM }} 在未配置该 secret 时会注入
+    # 空字符串（key 存在、值为空），此时 os.environ.get(k, default) 的 default 不生效，
+    # 会拼出发件人 "GitHubTrending <>"，被 QQ 以 550 "From header is missing or invalid" 拒收。
+    # 因此必须用 `or user` 兜底，并校验含 @ 才认为是合法地址。
+    from_addr = (os.environ.get("EMAIL_FROM") or "").strip()
+    if "@" not in from_addr:
+        from_addr = user
+    from_ = formataddr(("GitHubTrending", from_addr))
     msg = MIMEText(html_email(items, title), "html", "utf-8")
     msg["Subject"] = title
     msg["From"] = from_

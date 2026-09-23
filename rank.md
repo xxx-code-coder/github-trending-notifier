@@ -1,7 +1,7 @@
 ## GitHub 周趋势榜 Top20 (2026-09-23)
 > 数据来源 github.com/trending
 
-1. [alibaba/open-code-review](https://github.com/alibaba/open-code-review)  ⭐39,838  12,590 stars this week
+1. [alibaba/open-code-review](https://github.com/alibaba/open-code-review)  ⭐39,839  12,590 stars this week
 > Secure, fast, efficient, battle-tested at Alibaba's scale. H
 2. [anthropics/claude-code](https://github.com/anthropics/claude-code)  ⭐147,687  2,754 stars this week
 > Claude Code is an agentic coding tool that lives in your ter
@@ -18,7 +18,7 @@
 8. [TencentCloud/Octop](https://github.com/TencentCloud/Octop)  ⭐4,669  2,148 stars this week
 > A smarter, self-hosted AI assistant — multi-user, multi-agen
 9. [anthropics/financial-services](https://github.com/anthropics/financial-services)  ⭐36,488  1,238 stars this week
-10. [stablyai/orca](https://github.com/stablyai/orca)  ⭐75,830  6,205 stars this week
+10. [stablyai/orca](https://github.com/stablyai/orca)  ⭐75,832  6,205 stars this week
 > Orca is the ADE for working with a fleet of parallel agents.
 11. [danny-avila/LibreChat](https://github.com/danny-avila/LibreChat)  ⭐44,713  1,262 stars this week
 > Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSe

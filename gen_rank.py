@@ -295,6 +295,15 @@ def _skill_brief(name, category):
     return f"[未知分类] {name_cn}"
 
 
+def _fmt_growth(gp):
+    """增长率显示：负数保留 '-' 号（不再叠加 '+'），非负才加 '+'，空值用 '—'。
+    源 CSV 的 growth_pct 是纯带符号数值（如 '80.8' / '-1.5'，不含 '%' 和 '+'）。"""
+    gp = (gp or "").strip().lstrip("+")
+    if not gp:
+        return "—"
+    return f"{gp}%" if gp.startswith("-") else f"+{gp}%"
+
+
 def fetch_skills_trending(top=SKILLS_TOP, retries=3):
     """抓 best-skills 的 trending-7d.csv → 解析 → 取前 top 条，产出视角四。
     失败（限流/断流）返回 []，不抛异常（避免拖垮整封邮件）。"""
@@ -339,7 +348,7 @@ def skills_md_block(items, title, sort_note=""):
         vp = f" · 厂商 {it['vendor']}" if it["vendor"] else ""
         cat = f" · 分类 {it['category']}" if it["category"] else ""
         gp = it["growth_pct"]
-        gp_str = f" · 增长 +{gp}%" if gp else " · 增长 —"
+        gp_str = f" · 增长 {_fmt_growth(gp)}"
         lines.append(f"{i}. [{it['name']}]({link}){vp}{cat} · 本周安装 {it['weekly_recent']}{gp_str}")
         if it.get("brief"):
             lines.append(f"> {it['brief']}")
@@ -352,7 +361,7 @@ def skills_html_section(items, subtitle, note):
         f"<td><a href='{it['url'] or 'https://skills.sh/' + it['name']}'>{it['name']}</a></td>"
         f"<td>{it['vendor']}</td><td>{it['category']}</td>"
         f"<td>{it['weekly_recent']}</td>"
-        f"<td>{('+' + it['growth_pct'] + '%') if it['growth_pct'] else '—'}</td>"
+        f"<td>{_fmt_growth(it['growth_pct'])}</td>"
         f"<td>{it.get('brief', '')}</td></tr>"
         for i, it in enumerate(items, 1)
     )

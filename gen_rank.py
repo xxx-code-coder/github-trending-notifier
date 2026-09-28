@@ -292,7 +292,7 @@ def _skill_brief(name, category):
     name_cn = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])", "", name_cn)
     if cat_cn:
         return f"[{cat_cn}] {name_cn}"
-    return name_cn
+    return f"[未知分类] {name_cn}"
 
 
 def fetch_skills_trending(top=SKILLS_TOP, retries=3):

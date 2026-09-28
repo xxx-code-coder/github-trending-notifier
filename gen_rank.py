@@ -231,6 +231,139 @@ OFFICIAL_TITLE = "GitHub 官方 trending 原顺序（未重排）"
 AI_NOTE = "排序：👁 你关注的置顶 → 🛠️ 应用层优先 → 🔬 研究层靠后；各组内按本周 star 增量降序。多语言(py/ts/js/jupyter/rust/c++/go)周榜合并去重，宽松判定 AI 类（宁滥勿漏）。"
 AI_TITLE = "视角三 · AI 应用层周榜（可直接上手的轮子优先）"
 
+# 视角四：Agent Skills 7天飙升榜（数据来自 LinklyAI/best-skills 开源聚合，CC BY 4.0）
+# GitHub 官方无“skill”维度趋势，best-skills 每日聚合 skills.sh/ClawHub/腾讯SkillHub/
+# GitHub/X 等多生态，给出“7天增长最快”的 skill 排名。raw CSV 公开免鉴权，Actions runner 可直抓。
+SKILLS_CSV_URL = ("https://raw.githubusercontent.com/LinklyAI/best-skills/main/"
+                   "data/latest/rankings/trending-7d.csv")
+SKILLS_TOP = 100         # 邮件/rank.md 展示条数（CSV 含 Top100，取前 N 防过长）
+SKILLS_TITLE = "视角四 · Agent Skills 7天飙升榜（best-skills 跨生态聚合）"
+SKILLS_NOTE = ("数据来源 LinklyAI/best-skills（CC BY 4.0），每日更新；按 7 天安装增速降序。"
+               "厂商=发布方，分类=技能类型，本周安装=近7天新增安装，增长率=周环比 %。"
+               "链接优先跳 GitHub 仓库，无则跳 skills.sh 页面。"
+               "【用途】列由 skill 名+分类本地派生（源 CSV 无简介字段），辅助快速判断是干啥的。")
+
+# 视角四：分类 → 中文标签（category 字段有值，但为英文，翻译后更易读）
+_SKILL_CAT_CN = {
+    "design-media": "设计/媒体",
+    "content-creation": "内容创作",
+    "ai-agent": "AI 智能体",
+    "dev-tools": "开发工具",
+    "productivity": "效率",
+    "data": "数据",
+    "research": "研究",
+    "automation": "自动化",
+}
+# 视角四：skill 名 token → 中文（覆盖 best-skills 高频词；未命中保留原文）
+_SKILL_TOKEN_CN = {
+    "ai": "AI", "video": "视频", "generation": "生成", "generate": "生成",
+    "image": "图像", "images": "图像", "audio": "音频", "music": "音乐",
+    "avatar": "虚拟形象", "reference": "参考", "to": "→", "seedance": "Seedance",
+    "wan": "万相", "prime": "旗舰", "media": "媒体", "use": "使用", "edit": "剪辑",
+    "editing": "剪辑", "twitter": "Twitter/X", "reddit": "Reddit",
+    "automation": "自动化", "google": "Google", "agents": "智能体", "agent": "智能体",
+    "cli": "命令行", "adk": "ADK", "code": "编码", "eval": "评估",
+    "evaluation": "评估", "workflow": "工作流", "observability": "可观测性",
+    "scaffold": "脚手架", "publish": "发布", "deploy": "部署", "find": "查找",
+    "skills": "技能", "design": "设计", "mobile": "移动端", "apps": "应用",
+    "app": "应用", "ios": "iOS", "ui": "UI", "taste": "审美", "heygen": "HeyGen",
+    "hyperframes": "HyperFrames", "genmedia": "GenMedia", "labs": "实验室", "qu": "Qu",
+    "vercel": "Vercel", "kimi": "Kimi", "deepseek": "DeepSeek", "claude": "Claude",
+    "openai": "OpenAI", "llama": "Llama", "mistral": "Mistral", "glm": "GLM",
+    "hunyuan": "混元", "qwen": "通义千问", "chatgpt": "ChatGPT", "gemini": "Gemini",
+    "copilot": "Copilot", "translate": "翻译", "transcription": "转写",
+    "speech": "语音", "ocr": "OCR", "pdf": "PDF", "search": "搜索", "rag": "RAG",
+    "bot": "机器人", "scraper": "爬虫", "crawler": "爬虫", "api": "API",
+    "sdk": "SDK", "server": "服务", "client": "客户端", "wrapper": "封装",
+}
+
+
+def _skill_brief(name, category):
+    """本地派生中文简述：分类标签 + skill 名逐 token 翻译。零网络、零额外请求。
+    源 CSV 的 description/description_zh 两列 100% 为空，故用名字面救命。"""
+    cat_cn = _SKILL_CAT_CN.get((category or "").strip().lower(), category or "")
+    tokens = [t for t in (name or "").split("-") if t]
+    parts = []
+    for t in tokens:
+        parts.append(_SKILL_TOKEN_CN.get(t.lower(), t))
+    # “→” 前后不空格；其余 token 用空格连接
+    name_cn = " ".join(parts).replace(" → ", "→")
+    # 相邻中文 token 去空格（“AI 视频 生成”→“AI 视频生成”），更易读
+    name_cn = re.sub(r"(?<=[\u4e00-\u9fff])\s+(?=[\u4e00-\u9fff])", "", name_cn)
+    if cat_cn:
+        return f"[{cat_cn}] {name_cn}"
+    return name_cn
+
+
+def fetch_skills_trending(top=SKILLS_TOP, retries=3):
+    """抓 best-skills 的 trending-7d.csv → 解析 → 取前 top 条，产出视角四。
+    失败（限流/断流）返回 []，不抛异常（避免拖垮整封邮件）。"""
+    import csv, io
+    last_err = None
+    for attempt in range(1, retries + 1):
+        try:
+            req = urllib.request.Request(SKILLS_CSV_URL, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                text = resp.read().decode("utf-8")
+            rows = list(csv.DictReader(io.StringIO(text)))
+            items = []
+            for r in rows[:top]:
+                items.append({
+                    "name": (r.get("skill") or "?").strip(),
+                    "vendor": (r.get("vendor") or "").strip(),
+                    "category": (r.get("category") or "").strip(),
+                    "weekly_recent": (r.get("weekly_recent") or "").strip(),
+                    "weekly_prev": (r.get("weekly_prev") or "").strip(),
+                    "growth_pct": (r.get("growth_pct") or "").strip(),
+                    "desc_zh": (r.get("description_zh") or r.get("description") or "").strip(),
+                    "brief": _skill_brief(r.get("skill") or "", r.get("category") or ""),
+                    "url": (r.get("repo_url") or r.get("url") or "").strip(),
+                })
+            print(f"[skills] 抓取 {len(items)} 条 Agent Skills（trending-7d）")
+            return items
+        except Exception as e:
+            last_err = f"{type(e).__name__}: {str(e)[:120]}"
+            print(f"[skills][retry {attempt}/{retries}] {last_err}")
+            time.sleep(3 * attempt)
+    print(f"[skills] 抓取失败（已重试 {retries} 次）：{last_err} → 视角四为空")
+    return []
+
+
+def skills_md_block(items, title, sort_note=""):
+    lines = [f"## {title}", "> 数据来源 LinklyAI/best-skills（CC BY 4.0）"]
+    if sort_note:
+        lines.append(f"> {sort_note}")
+    lines.append("")
+    for i, it in enumerate(items, 1):
+        link = it["url"] or f"https://skills.sh/{it['name']}"
+        vp = f" · 厂商 {it['vendor']}" if it["vendor"] else ""
+        cat = f" · 分类 {it['category']}" if it["category"] else ""
+        gp = it["growth_pct"]
+        gp_str = f" · 增长 +{gp}%" if gp else " · 增长 —"
+        lines.append(f"{i}. [{it['name']}]({link}){vp}{cat} · 本周安装 {it['weekly_recent']}{gp_str}")
+        if it.get("brief"):
+            lines.append(f"> {it['brief']}")
+    return "\n".join(lines)
+
+
+def skills_html_section(items, subtitle, note):
+    rows = "".join(
+        f"<tr><td>{i}</td>"
+        f"<td><a href='{it['url'] or 'https://skills.sh/' + it['name']}'>{it['name']}</a></td>"
+        f"<td>{it['vendor']}</td><td>{it['category']}</td>"
+        f"<td>{it['weekly_recent']}</td>"
+        f"<td>{('+' + it['growth_pct'] + '%') if it['growth_pct'] else '—'}</td>"
+        f"<td>{it.get('brief', '')}</td></tr>"
+        for i, it in enumerate(items, 1)
+    )
+    return (
+        f"<h3>{subtitle}</h3>"
+        f"<p style='color:#888;font-size:12px;margin:2px 0 8px'>{note}</p>"
+        f"<table border='1' cellspacing='0' cellpadding='6'>"
+        f"<tr><th>#</th><th>Skill</th><th>厂商</th><th>分类</th><th>本周安装</th><th>增长率</th><th>用途</th></tr>"
+        f"{rows}</table><br/>"
+    )
+
 
 def md_block(items, title, sort_note=""):
     lines = [f"## {title}", "> 数据来源 github.com/trending"]
@@ -290,17 +423,18 @@ def html_section(items, subtitle, note):
     )
 
 
-def html_email(sorted_items, raw_items, ai_items, title):
-    """单邮件三视角：视角一=本周增量降序；视角二=GitHub 官方原顺序；视角三=AI 应用层周榜。"""
+def html_email(sorted_items, raw_items, ai_items, skills_items, title):
+    """单邮件四视角：视角一=本周增量降序；视角二=GitHub 官方原顺序；视角三=AI 应用层周榜；视角四=Agent Skills 7天飙升榜。"""
     return (
         f"<h2>{title}</h2>"
         + html_section(sorted_items, "视角一 · 本周 star 增量榜（谁涨得多谁靠前）", GROWTH_NOTE)
         + html_section(raw_items, f"视角二 · {OFFICIAL_TITLE}", OFFICIAL_NOTE)
         + html_section(ai_items, AI_TITLE, AI_NOTE)
+        + (skills_html_section(skills_items, SKILLS_TITLE, SKILLS_NOTE) if skills_items else "")
     )
 
 
-def push_email(sorted_items, raw_items, ai_items, title):
+def push_email(sorted_items, raw_items, ai_items, skills_items, title):
     host, port, user, pwd, to = (
         os.environ.get(k) for k in ("SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS", "EMAIL_TO")
     )
@@ -315,7 +449,7 @@ def push_email(sorted_items, raw_items, ai_items, title):
     if "@" not in from_addr:
         from_addr = user
     from_ = formataddr(("GitHubTrending", from_addr))
-    msg = MIMEText(html_email(sorted_items, raw_items, ai_items, title), "html", "utf-8")
+    msg = MIMEText(html_email(sorted_items, raw_items, ai_items, skills_items, title), "html", "utf-8")
     msg["Subject"] = title
     msg["From"] = from_
     msg["To"] = to
@@ -346,16 +480,18 @@ def main():
     # 🔴 按「本周 star 增量」降序重排出视角一（官网顺序是自家不透明算法，并非纯增量排序）
     sorted_items = sorted(raw_items, key=lambda it: _parse_weekly(it["week"]), reverse=True)
     ai_items = fetch_ai_board(since)                  # 视角三：AI 应用层周榜（多语言合并）
+    skills_items = fetch_skills_trending()            # 视角四：Agent Skills 7天飙升榜（best-skills）
     today = datetime.date.today().strftime("%Y-%m-%d")
     title = f"GitHub {_period_cn(since)}趋势榜 Top{len(raw_items)} ({today})"
     with open("rank.md", "w", encoding="utf-8") as f:
-        # 单邮件三视角：主视角=增量降序，副视角=官方原顺序，视角三=AI 应用层
+        # 单邮件四视角：主视角=增量降序，副视角=官方原顺序，视角三=AI 应用层，视角四=Agent Skills
         f.write(md_block(sorted_items, title, GROWTH_NOTE) + "\n\n")
         f.write(md_block(raw_items, OFFICIAL_TITLE, OFFICIAL_NOTE) + "\n\n")
-        f.write(md_block(ai_items, AI_TITLE, AI_NOTE) + "\n")
-    print(f"抓取 {len(raw_items)} 条综合 + {len(ai_items)} 条 AI 应用层，已写 rank.md（三视角）")
+        f.write(md_block(ai_items, AI_TITLE, AI_NOTE) + "\n\n")
+        f.write(skills_md_block(skills_items, SKILLS_TITLE, SKILLS_NOTE) + "\n")
+    print(f"抓取 {len(raw_items)} 条综合 + {len(ai_items)} 条 AI 应用层 + {len(skills_items)} 条 Agent Skills，已写 rank.md（四视角）")
     push_wechat(sorted_items, title)                 # 企微（未配置）仅发主视角
-    push_email(sorted_items, raw_items, ai_items, title)   # 邮件发三视角
+    push_email(sorted_items, raw_items, ai_items, skills_items, title)   # 邮件发四视角
 
 
 if __name__ == "__main__":

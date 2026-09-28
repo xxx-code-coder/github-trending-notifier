@@ -2,32 +2,32 @@
 > 数据来源 github.com/trending
 > 排序：按本周 star 增量降序（谁涨得多谁靠前）
 
-1. [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight)  ⭐37,835  11,089 stars this week
+1. [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight)  ⭐37,854  11,089 stars this week
 > Hindsight: Agent Memory That Learns
-2. [paperclipai/paperclip](https://github.com/paperclipai/paperclip)  ⭐90,387  7,364 stars this week
+2. [paperclipai/paperclip](https://github.com/paperclipai/paperclip)  ⭐90,405  7,364 stars this week
 > The open-source app everyone uses to manage agents at work
-3. [stablyai/orca](https://github.com/stablyai/orca)  ⭐79,813  6,227 stars this week
+3. [stablyai/orca](https://github.com/stablyai/orca)  ⭐79,823  6,227 stars this week
 > Orca is the ADE for working with a fleet of parallel agents.
-4. [affaan-m/ECC](https://github.com/affaan-m/ECC)  ⭐268,489  5,175 stars this week
+4. [affaan-m/ECC](https://github.com/affaan-m/ECC)  ⭐268,493  5,175 stars this week
 > The agent harness performance optimization system. Skills, i
 5. [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill)  ⭐22,399  4,805 stars this week
 > A coding-agent skill for multi-phase security audits with in
-6. [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)  ⭐59,528  3,850 stars this week
+6. [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)  ⭐59,531  3,850 stars this week
 > Learn it. Build it. Ship it for others.
-7. [alibaba/open-code-review](https://github.com/alibaba/open-code-review)  ⭐41,995  3,727 stars this week
+7. [alibaba/open-code-review](https://github.com/alibaba/open-code-review)  ⭐41,998  3,727 stars this week
 > Secure, fast, efficient, battle-tested at Alibaba's scale. H
 8. [Tencent/WeKnora](https://github.com/Tencent/WeKnora)  ⭐30,698  2,705 stars this week
 > Open-source LLM knowledge platform: turn raw documents into 
-9. [anthropics/financial-services](https://github.com/anthropics/financial-services)  ⭐37,896  2,606 stars this week
+9. [anthropics/financial-services](https://github.com/anthropics/financial-services)  ⭐37,897  2,606 stars this week
 10. [anthropics/claude-code](https://github.com/anthropics/claude-code)  ⭐148,373  1,493 stars this week
 > Claude Code is an agentic coding tool that lives in your ter
 11. [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates)  ⭐31,999  1,154 stars this week
 > CLI tool for configuring and monitoring Claude Code
 12. [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything)  ⭐50,776  1,105 stars this week
 > "CLI-Anything: Making ALL Software Agent-Native" -- CLI-Hub:
-13. [TencentCloud/Octop](https://github.com/TencentCloud/Octop)  ⭐5,321  869 stars this week
+13. [TencentCloud/Octop](https://github.com/TencentCloud/Octop)  ⭐5,322  869 stars this week
 > A smarter, self-hosted AI assistant — multi-user, multi-agen
-14. [cloudflare/quiche](https://github.com/cloudflare/quiche)  ⭐12,665  521 stars this week
+14. [cloudflare/quiche](https://github.com/cloudflare/quiche)  ⭐12,666  521 stars this week
 > 🥧 Savoury implementation of the QUIC transport protocol and 
 15. [vercel/next.js](https://github.com/vercel/next.js)  ⭐142,810  496 stars this week
 > The React Framework
@@ -42,10 +42,10 @@
 > 数据来源 github.com/trending
 > 排序：照搬 github.com/trending 官方顺序（GitHub 自家算法，非纯增量）
 
-1. [anthropics/financial-services](https://github.com/anthropics/financial-services)  ⭐37,896  2,606 stars this week
-2. [paperclipai/paperclip](https://github.com/paperclipai/paperclip)  ⭐90,387  7,364 stars this week
+1. [anthropics/financial-services](https://github.com/anthropics/financial-services)  ⭐37,897  2,606 stars this week
+2. [paperclipai/paperclip](https://github.com/paperclipai/paperclip)  ⭐90,405  7,364 stars this week
 > The open-source app everyone uses to manage agents at work
-3. [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight)  ⭐37,835  11,089 stars this week
+3. [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight)  ⭐37,854  11,089 stars this week
 > Hindsight: Agent Memory That Learns
 4. [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill)  ⭐22,399  4,805 stars this week
 > A coding-agent skill for multi-phase security audits with in
@@ -53,7 +53,7 @@
 > Open-source LLM knowledge platform: turn raw documents into 
 6. [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates)  ⭐31,999  1,154 stars this week
 > CLI tool for configuring and monitoring Claude Code
-7. [stablyai/orca](https://github.com/stablyai/orca)  ⭐79,813  6,227 stars this week
+7. [stablyai/orca](https://github.com/stablyai/orca)  ⭐79,823  6,227 stars this week
 > Orca is the ADE for working with a fleet of parallel agents.
 8. [vercel/next.js](https://github.com/vercel/next.js)  ⭐142,810  496 stars this week
 > The React Framework
@@ -63,15 +63,15 @@
 > Tensors and Dynamic neural networks in Python with strong GP
 11. [anthropics/claude-code](https://github.com/anthropics/claude-code)  ⭐148,373  1,493 stars this week
 > Claude Code is an agentic coding tool that lives in your ter
-12. [affaan-m/ECC](https://github.com/affaan-m/ECC)  ⭐268,489  5,175 stars this week
+12. [affaan-m/ECC](https://github.com/affaan-m/ECC)  ⭐268,493  5,175 stars this week
 > The agent harness performance optimization system. Skills, i
-13. [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)  ⭐59,528  3,850 stars this week
+13. [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)  ⭐59,531  3,850 stars this week
 > Learn it. Build it. Ship it for others.
-14. [alibaba/open-code-review](https://github.com/alibaba/open-code-review)  ⭐41,995  3,727 stars this week
+14. [alibaba/open-code-review](https://github.com/alibaba/open-code-review)  ⭐41,998  3,727 stars this week
 > Secure, fast, efficient, battle-tested at Alibaba's scale. H
-15. [cloudflare/quiche](https://github.com/cloudflare/quiche)  ⭐12,665  521 stars this week
+15. [cloudflare/quiche](https://github.com/cloudflare/quiche)  ⭐12,666  521 stars this week
 > 🥧 Savoury implementation of the QUIC transport protocol and 
-16. [TencentCloud/Octop](https://github.com/TencentCloud/Octop)  ⭐5,321  869 stars this week
+16. [TencentCloud/Octop](https://github.com/TencentCloud/Octop)  ⭐5,322  869 stars this week
 > A smarter, self-hosted AI assistant — multi-user, multi-agen
 17. [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins)  ⭐25,772  478 stars this week
 > Open source repository of plugins primarily intended for kno
@@ -82,36 +82,36 @@
 > 数据来源 github.com/trending
 > 排序：👁 你关注的置顶 → 🛠️ 应用层优先 → 🔬 研究层靠后；各组内按本周 star 增量降序。多语言(py/ts/js/jupyter/rust/c++/go)周榜合并去重，宽松判定 AI 类（宁滥勿漏）。
 
-1. [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight)  [🛠️ 应用层]  ⭐37,835  11,089 stars this week
+1. [vectorize-io/hindsight](https://github.com/vectorize-io/hindsight)  [🛠️ 应用层]  ⭐37,854  11,089 stars this week
 > Hindsight: Agent Memory That Learns
-2. [hydra-db/hydradb](https://github.com/hydra-db/hydradb)  [🛠️ 应用层]  ⭐10,965  7,565 stars this week
+2. [hydra-db/hydradb](https://github.com/hydra-db/hydradb)  [🛠️ 应用层]  ⭐10,966  7,565 stars this week
 > HydraDB - fast graph database on object storage
-3. [paperclipai/paperclip](https://github.com/paperclipai/paperclip)  [🛠️ 应用层]  ⭐90,387  7,364 stars this week
+3. [paperclipai/paperclip](https://github.com/paperclipai/paperclip)  [🛠️ 应用层]  ⭐90,405  7,364 stars this week
 > The open-source app everyone uses to manage agents at work
-4. [stablyai/orca](https://github.com/stablyai/orca)  [🛠️ 应用层]  ⭐79,813  6,227 stars this week
+4. [stablyai/orca](https://github.com/stablyai/orca)  [🛠️ 应用层]  ⭐79,823  6,227 stars this week
 > Orca is the ADE for working with a fleet of parallel agents.
-5. [dream-num/univer](https://github.com/dream-num/univer)  [🛠️ 应用层]  ⭐20,704  5,414 stars this week
+5. [dream-num/univer](https://github.com/dream-num/univer)  [🛠️ 应用层]  ⭐20,708  5,414 stars this week
 > The Office Harness for AI Agents — Spreadsheets, Docs, Slide
-6. [affaan-m/ECC](https://github.com/affaan-m/ECC)  [🛠️ 应用层]  ⭐268,489  5,175 stars this week
+6. [affaan-m/ECC](https://github.com/affaan-m/ECC)  [🛠️ 应用层]  ⭐268,493  5,175 stars this week
 > The agent harness performance optimization system. Skills, i
 7. [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill)  [🛠️ 应用层]  ⭐22,399  4,805 stars this week
 > A coding-agent skill for multi-phase security audits with in
-8. [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)  [🛠️ 应用层]  ⭐59,528  3,850 stars this week
+8. [rohitg00/ai-engineering-from-scratch](https://github.com/rohitg00/ai-engineering-from-scratch)  [🛠️ 应用层]  ⭐59,531  3,850 stars this week
 > Learn it. Build it. Ship it for others.
-9. [alibaba/open-code-review](https://github.com/alibaba/open-code-review)  [🛠️ 应用层]  ⭐41,995  3,727 stars this week
+9. [alibaba/open-code-review](https://github.com/alibaba/open-code-review)  [🛠️ 应用层]  ⭐41,998  3,727 stars this week
 > Secure, fast, efficient, battle-tested at Alibaba's scale. H
 10. [Open-Dev-Society/OpenStock](https://github.com/Open-Dev-Society/OpenStock)  [🛠️ 应用层]  ⭐19,402  2,792 stars this week
 > OpenStock is an open-source alternative to expensive market 
-11. [Tencent/WeKnora](https://github.com/Tencent/WeKnora)  [🛠️ 应用层]  ⭐30,698  2,705 stars this week
+11. [Tencent/WeKnora](https://github.com/Tencent/WeKnora)  [🛠️ 应用层]  ⭐30,699  2,705 stars this week
 > Open-source LLM knowledge platform: turn raw documents into 
-12. [anthropics/financial-services](https://github.com/anthropics/financial-services)  [🛠️ 应用层]  ⭐37,896  2,606 stars this week
+12. [anthropics/financial-services](https://github.com/anthropics/financial-services)  [🛠️ 应用层]  ⭐37,897  2,606 stars this week
 13. [pbakaus/impeccable](https://github.com/pbakaus/impeccable)  [🛠️ 应用层]  ⭐71,851  2,482 stars this week
 > The design language that makes your AI harness better at des
-14. [Nasiko-Labs/nasiko](https://github.com/Nasiko-Labs/nasiko)  [🛠️ 应用层]  ⭐8,998  2,353 stars this week
+14. [Nasiko-Labs/nasiko](https://github.com/Nasiko-Labs/nasiko)  [🛠️ 应用层]  ⭐8,999  2,353 stars this week
 > Developer Control Plane for your AI Agents
 15. [clash-verge-rev/clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)  [🛠️ 应用层]  ⭐147,867  2,173 stars this week
 > A modern GUI client based on Tauri, designed to run in Windo
-16. [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)  [🛠️ 应用层]  ⭐99,534  2,063 stars this week
+16. [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)  [🛠️ 应用层]  ⭐99,535  2,063 stars this week
 > Production-grade engineering skills for AI coding agents.
 17. [agent-substrate/substrate](https://github.com/agent-substrate/substrate)  [🛠️ 应用层]  ⭐3,887  1,839 stars this week
 > Agent Substrate: the core system
@@ -119,7 +119,7 @@
 > OpenRouter for agent tools. Join community here:https://disc
 19. [mvt-project/mvt](https://github.com/mvt-project/mvt)  [🛠️ 应用层]  ⭐14,943  1,686 stars this week
 > MVT (Mobile Verification Toolkit) helps with conducting fore
-20. [Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill)  [🛠️ 应用层]  ⭐7,577  1,518 stars this week
+20. [Tencent/BrowserSkill](https://github.com/Tencent/BrowserSkill)  [🛠️ 应用层]  ⭐7,579  1,518 stars this week
 > Let AI agents use your real, logged-in browser without inter
 21. [anthropics/claude-code](https://github.com/anthropics/claude-code)  [🛠️ 应用层]  ⭐148,373  1,493 stars this week
 > Claude Code is an agentic coding tool that lives in your ter
@@ -127,7 +127,7 @@
 > 免费无广告的追剧资源指南，人工精选资源、每天检测资源有效性。收录在线影视、影视APP、网盘搜索、磁力BT、字幕、TVBo
 23. [Crosstalk-Solutions/project-nomad](https://github.com/Crosstalk-Solutions/project-nomad)  [🛠️ 应用层]  ⭐38,601  1,397 stars this week
 > Project NOMAD is an offline-first knowledge and education se
-24. [juspay/hyperswitch](https://github.com/juspay/hyperswitch)  [🛠️ 应用层]  ⭐44,907  1,286 stars this week
+24. [juspay/hyperswitch](https://github.com/juspay/hyperswitch)  [🛠️ 应用层]  ⭐44,909  1,286 stars this week
 > Open source, composable payments platform | PCI compliant | 
 25. [akitaonrails/ai-memory](https://github.com/akitaonrails/ai-memory)  [🛠️ 应用层]  ⭐8,499  1,224 stars this week
 > Solution for long term memory for agent coding CLIs and to f
@@ -143,17 +143,17 @@
 > Build an agent harness and control it end-to-end. Open-sourc
 31. [HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything)  [🛠️ 应用层]  ⭐50,776  1,105 stars this week
 > "CLI-Anything: Making ALL Software Agent-Native" -- CLI-Hub:
-32. [mobile-next/mobile-mcp](https://github.com/mobile-next/mobile-mcp)  [🛠️ 应用层]  ⭐7,965  1,008 stars this week
+32. [mobile-next/mobile-mcp](https://github.com/mobile-next/mobile-mcp)  [🛠️ 应用层]  ⭐7,968  1,008 stars this week
 > Model Context Protocol Server for Mobile Automation and Scra
-33. [bendlang/bend](https://github.com/bendlang/bend)  [🛠️ 应用层]  ⭐23,000  958 stars this week
+33. [bendlang/bend](https://github.com/bendlang/bend)  [🛠️ 应用层]  ⭐23,001  958 stars this week
 > Bend 2: a fast language that blocks AI mistakes via proof. I
 34. [coder/coder](https://github.com/coder/coder)  [🛠️ 应用层]  ⭐16,729  892 stars this week
 > Secure environments for developers and their agents
-35. [TencentCloud/Octop](https://github.com/TencentCloud/Octop)  [🛠️ 应用层]  ⭐5,321  869 stars this week
+35. [TencentCloud/Octop](https://github.com/TencentCloud/Octop)  [🛠️ 应用层]  ⭐5,322  869 stars this week
 > A smarter, self-hosted AI assistant — multi-user, multi-agen
 36. [openbao/openbao](https://github.com/openbao/openbao)  [🛠️ 应用层]  ⭐8,144  701 stars this week
 > OpenBao is a software solution to manage, store, and distrib
-37. [tokio-rs/topcoat](https://github.com/tokio-rs/topcoat)  [🛠️ 应用层]  ⭐5,564  613 stars this week
+37. [tokio-rs/topcoat](https://github.com/tokio-rs/topcoat)  [🛠️ 应用层]  ⭐5,566  613 stars this week
 > A batteries-included framework for building web apps
 38. [androoAGI/starnet](https://github.com/androoAGI/starnet)  [🛠️ 应用层]  ⭐681  569 stars this week
 > A living pixel-art station where real AI agents do real work
@@ -161,9 +161,9 @@
 > Formerly KrillinAI. Open-source AI workspace for creators, p
 40. [mnfst/awesome-free-llm-apis](https://github.com/mnfst/awesome-free-llm-apis)  [🛠️ 应用层]  ⭐8,497  550 stars this week
 > List of Permanent Free LLM API (API Keys)
-41. [cloudflare/quiche](https://github.com/cloudflare/quiche)  [🛠️ 应用层]  ⭐12,665  521 stars this week
+41. [cloudflare/quiche](https://github.com/cloudflare/quiche)  [🛠️ 应用层]  ⭐12,666  521 stars this week
 > 🥧 Savoury implementation of the QUIC transport protocol and 
-42. [rustfs/rustfs](https://github.com/rustfs/rustfs)  [🛠️ 应用层]  ⭐33,996  514 stars this week
+42. [rustfs/rustfs](https://github.com/rustfs/rustfs)  [🛠️ 应用层]  ⭐33,997  514 stars this week
 > RustFS is an open-source, S3-compatible high-performance obj
 43. [vercel/next.js](https://github.com/vercel/next.js)  [🛠️ 应用层]  ⭐142,810  496 stars this week
 > The React Framework
@@ -199,9 +199,9 @@
 > 📈 Get real-time stocks from TradingView
 59. [Gentleman-Programming/gentle-ai](https://github.com/Gentleman-Programming/gentle-ai)  [🛠️ 应用层]  ⭐7,352  296 stars this week
 > Gentle-AI configures the AI coding agents you already use: C
-60. [pdone/lx-music-source](https://github.com/pdone/lx-music-source)  [🛠️ 应用层]  ⭐9,283  284 stars this week
+60. [pdone/lx-music-source](https://github.com/pdone/lx-music-source)  [🛠️ 应用层]  ⭐9,284  284 stars this week
 > 洛雪音乐源
-61. [tauri-apps/tauri](https://github.com/tauri-apps/tauri)  [🛠️ 应用层]  ⭐111,440  274 stars this week
+61. [tauri-apps/tauri](https://github.com/tauri-apps/tauri)  [🛠️ 应用层]  ⭐111,439  274 stars this week
 > Build smaller, faster, and more secure desktop and mobile ap
 62. [lbjlaq/Antigravity-Manager](https://github.com/lbjlaq/Antigravity-Manager)  [🛠️ 应用层]  ⭐31,772  271 stars this week
 > Professional Antigravity Account Manager & Switcher. One-cli
@@ -290,7 +290,7 @@
 > [设计/媒体] AI 音乐
 20. [design-mobile-apps](https://github.com/designed-by-ai/skills) · 厂商 designed-by-ai · 分类 design-media · 本周安装 141034 · 增长 +1.8%
 > [设计/媒体] 设计移动端应用
-21. [media-use](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 76097 · 增长 +-6.9%
+21. [media-use](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 76097 · 增长 -6.9%
 > [设计/媒体] 媒体使用
 22. [google-agents-cli-adk-code](https://github.com/google/agents-cli) · 厂商 google · 分类 ai-agent · 本周安装 132598 · 增长 +80.8%
 > [AI 智能体] Google 智能体命令行 ADK 编码
@@ -306,15 +306,15 @@
 > [AI 智能体] Google 智能体命令行发布
 28. [google-agents-cli-deploy](https://github.com/google/agents-cli) · 厂商 google · 分类 ai-agent · 本周安装 132546 · 增长 +80.8%
 > [AI 智能体] Google 智能体命令行部署
-29. [find-skills](https://github.com/vercel-labs/skills) · 厂商 vercel-labs · 分类 ai-agent · 本周安装 104050 · 增长 +-1.5%
+29. [find-skills](https://github.com/vercel-labs/skills) · 厂商 vercel-labs · 分类 ai-agent · 本周安装 104050 · 增长 -1.5%
 > [AI 智能体] 查找技能
-30. [hyperframes](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 70949 · 增长 +-10.9%
+30. [hyperframes](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 70949 · 增长 -10.9%
 > [设计/媒体] HyperFrames
-31. [hyperframes-cli](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 73383 · 增长 +-13.9%
+31. [hyperframes-cli](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 73383 · 增长 -13.9%
 > [设计/媒体] HyperFrames 命令行
-32. [hyperframes-registry](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 本周安装 66076 · 增长 +-3.5%
+32. [hyperframes-registry](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 本周安装 66076 · 增长 -3.5%
 > [未知分类] HyperFrames registry
-33. [hyperframes-animation](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 67222 · 增长 +-14.1%
+33. [hyperframes-animation](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 67222 · 增长 -14.1%
 > [设计/媒体] HyperFrames animation
 34. [ai-video-generation](https://github.com/magentosh/superpowers) · 厂商 magentosh · 分类 design-media · 本周安装 67328 · 增长 +30.2%
 > [设计/媒体] AI 视频生成
@@ -348,93 +348,93 @@
 > [设计/媒体] AI 图像生成
 49. [ai-video-generation](https://github.com/skills-shell/superpowers) · 厂商 skills-shell · 分类 design-media · 本周安装 66911 · 增长 +29.9%
 > [设计/媒体] AI 视频生成
-50. [hyperframes-core](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 dev-programming · 本周安装 60978 · 增长 +-24.7%
+50. [hyperframes-core](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 dev-programming · 本周安装 60978 · 增长 -24.7%
 > [dev-programming] HyperFrames core
-51. [hyperframes-keyframes](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 60829 · 增长 +-3.2%
+51. [hyperframes-keyframes](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 60829 · 增长 -3.2%
 > [设计/媒体] HyperFrames keyframes
-52. [hyperframes-audio](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 60548 · 增长 +-15.6%
+52. [hyperframes-audio](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 60548 · 增长 -15.6%
 > [设计/媒体] HyperFrames 音频
-53. [hyperframes-creative](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 57829 · 增长 +-26.3%
+53. [hyperframes-creative](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 57829 · 增长 -26.3%
 > [设计/媒体] HyperFrames creative
 54. [hyperframes-studio](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 57159 · 增长 —
 > [设计/媒体] HyperFrames studio
 55. [agent-browser](https://github.com/vercel-labs/agent-browser) · 厂商 vercel-labs · 分类 ai-agent · 本周安装 64227 · 增长 +29.9%
 > [AI 智能体] 智能体 browser
-56. [general-video](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 41856 · 增长 +-27.7%
+56. [general-video](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 41856 · 增长 -27.7%
 > [设计/媒体] general 视频
-57. [grill-me](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 48748 · 增长 +-10.1%
+57. [grill-me](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 48748 · 增长 -10.1%
 > [dev-programming] grill me
 58. [agent-browser](https://github.com/101-skills/superpowers) · 厂商 101-skills · 分类 ai-agent · 本周安装 45866 · 增长 +14.8%
 > [AI 智能体] 智能体 browser
-59. [product-launch-video](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 30571 · 增长 +-36.2%
+59. [product-launch-video](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 30571 · 增长 -36.2%
 > [设计/媒体] product launch 视频
-60. [grilling](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 life-service · 本周安装 44934 · 增长 +-10.6%
+60. [grilling](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 life-service · 本周安装 44934 · 增长 -10.6%
 > [life-service] grilling
-61. [motion-graphics](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 30614 · 增长 +-34.7%
+61. [motion-graphics](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 30614 · 增长 -34.7%
 > [设计/媒体] motion graphics
-62. [grill-with-docs](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 42342 · 增长 +-9.7%
+62. [grill-with-docs](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 42342 · 增长 -9.7%
 > [dev-programming] grill with docs
 63. [design-taste-frontend](https://github.com/leonxlnx/taste-skill) · 厂商 leonxlnx · 分类 design-media · 本周安装 28512 · 增长 +14.6%
 > [设计/媒体] 设计审美 frontend
-64. [faceless-explainer](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 29173 · 增长 +-37.5%
+64. [faceless-explainer](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 29173 · 增长 -37.5%
 > [设计/媒体] faceless explainer
-65. [domain-modeling](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 39241 · 增长 +-10.1%
+65. [domain-modeling](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 39241 · 增长 -10.1%
 > [dev-programming] domain modeling
-66. [handoff](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 ai-agent · 本周安装 38454 · 增长 +-9.1%
+66. [handoff](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 ai-agent · 本周安装 38454 · 增长 -9.1%
 > [AI 智能体] handoff
-67. [codebase-design](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 37520 · 增长 +-10.5%
+67. [codebase-design](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 37520 · 增长 -10.5%
 > [dev-programming] codebase 设计
-68. [code-review](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 38492 · 增长 +-10.6%
+68. [code-review](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 38492 · 增长 -10.6%
 > [dev-programming] 编码 review
-69. [tdd](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 37510 · 增长 +-10%
+69. [tdd](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 37510 · 增长 -10%
 > [dev-programming] tdd
-70. [improve-codebase-architecture](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 37752 · 增长 +-8.6%
+70. [improve-codebase-architecture](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 37752 · 增长 -8.6%
 > [dev-programming] improve codebase architecture
-71. [diagnosing-bugs](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 36286 · 增长 +-10.9%
+71. [diagnosing-bugs](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 36286 · 增长 -10.9%
 > [dev-programming] diagnosing bugs
 72. [agent-browser](https://github.com/qu-skills/superpowers) · 厂商 qu-skills · 分类 ai-agent · 本周安装  · 增长 —
 > [AI 智能体] 智能体 browser
-73. [implement](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 35107 · 增长 +-11.1%
+73. [implement](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 35107 · 增长 -11.1%
 > [dev-programming] implement
-74. [prototype](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 35058 · 增长 +-10.2%
+74. [prototype](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 35058 · 增长 -10.2%
 > [dev-programming] prototype
-75. [to-spec](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 35567 · 增长 +-11.5%
+75. [to-spec](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 35567 · 增长 -11.5%
 > [dev-programming] → spec
-76. [remotion-to-hyperframes](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 23733 · 增长 +-43.7%
+76. [remotion-to-hyperframes](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 23733 · 增长 -43.7%
 > [设计/媒体] remotion→HyperFrames
-77. [setup-matt-pocock-skills](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 34843 · 增长 +-9.7%
+77. [setup-matt-pocock-skills](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 34843 · 增长 -9.7%
 > [dev-programming] setup matt pocock 技能
-78. [research](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 knowledge-management · 本周安装 34938 · 增长 +-9.6%
+78. [research](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 knowledge-management · 本周安装 34938 · 增长 -9.6%
 > [knowledge-management] research
-79. [to-tickets](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 34784 · 增长 +-11.5%
+79. [to-tickets](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 34784 · 增长 -11.5%
 > [未知分类] → tickets
-80. [writing-for-agents](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 content-creation · 本周安装 33803 · 增长 +-11.5%
+80. [writing-for-agents](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 content-creation · 本周安装 33803 · 增长 -11.5%
 > [内容创作] writing for 智能体
-81. [triage](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 33584 · 增长 +-7.9%
+81. [triage](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 33584 · 增长 -7.9%
 > [未知分类] triage
-82. [teach](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 education · 本周安装 34229 · 增长 +-10.3%
+82. [teach](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 education · 本周安装 34229 · 增长 -10.3%
 > [education] teach
-83. [resolving-merge-conflicts](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 33504 · 增长 +-10.9%
+83. [resolving-merge-conflicts](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 33504 · 增长 -10.9%
 > [dev-programming] resolving merge conflicts
-84. [embedded-captions](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 22072 · 增长 +-50.2%
+84. [embedded-captions](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 22072 · 增长 -50.2%
 > [设计/媒体] embedded captions
-85. [music-to-video](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 21564 · 增长 +-50.7%
+85. [music-to-video](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 21564 · 增长 -50.7%
 > [设计/媒体] 音乐→视频
-86. [wayfinder](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 33899 · 增长 +-9.9%
+86. [wayfinder](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 33899 · 增长 -9.9%
 > [未知分类] wayfinder
-87. [pr-to-video](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 23634 · 增长 +-44.5%
+87. [pr-to-video](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 23634 · 增长 -44.5%
 > [设计/媒体] pr→视频
-88. [talking-head-recut](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 20138 · 增长 +-53.9%
+88. [talking-head-recut](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 20138 · 增长 -53.9%
 > [设计/媒体] talking head recut
-89. [ask-matt](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 32764 · 增长 +-10.2%
+89. [ask-matt](https://github.com/mattpocock/skills) · 厂商 mattpocock · 分类 dev-programming · 本周安装 32764 · 增长 -10.2%
 > [dev-programming] ask matt
-90. [slideshow](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 21683 · 增长 +-48.1%
+90. [slideshow](https://github.com/heygen-com/hyperframes) · 厂商 heygen-com · 分类 design-media · 本周安装 21683 · 增长 -48.1%
 > [设计/媒体] slideshow
-91. [to-questionnaire](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 31827 · 增长 +-11.5%
+91. [to-questionnaire](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 31827 · 增长 -11.5%
 > [未知分类] → questionnaire
-92. [wait-what](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 31766 · 增长 +-10.5%
+92. [wait-what](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 31766 · 增长 -10.5%
 > [未知分类] wait what
-93. [wizard](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 31253 · 增长 +-10%
+93. [wizard](https://github.com/mattpocock/skills) · 厂商 mattpocock · 本周安装 31253 · 增长 -10%
 > [未知分类] wizard
 94. [web-search](https://github.com/101-skills/superpowers) · 厂商 101-skills · 分类 knowledge-management · 本周安装 30304 · 增长 +13.6%
 > [knowledge-management] web 搜索
